@@ -9,22 +9,24 @@ public class SimpleParabolaMovement : MonoBehaviour
     public Transform target;
     [Range(0.1f, 30f)]
     public float speed = 1;
-
-    private float _time = 0;  
-    private Vector3 offset = new Vector3(0, 10, 0);
+    
+    private Vector3 _offset = new Vector3(0, 10, 0);
+    private bool _reachedTarget = false;
+    
+    private float _time = 0;     
     private Vector3 _startPoint;
     private Vector3 _targetPoint;
     private Vector3 _middlePoint;
     private Vector3 _point1;
     private Vector3 _point2;
-    private bool reachedTarget = false;
+    
 
     private void Start()
     {
         if (target == null) return;
         _startPoint = transform.position;
         _targetPoint = target.position + (new Vector3(0, transform.localScale.y, 0)/2); 
-        _middlePoint = (_startPoint*2 +_targetPoint) /3 + offset;
+        _middlePoint = (_startPoint*2 +_targetPoint) /3 + _offset;
         _point1 = _startPoint;
         _point2 = _middlePoint;
         _time = 0;
@@ -33,7 +35,7 @@ public class SimpleParabolaMovement : MonoBehaviour
     private void Update()
     {
         if (target == null) return;
-        if (reachedTarget == true) return;
+        if (_reachedTarget == true) return;
         
         _time += Time.deltaTime * speed;
         _point1 = Vector3.Lerp(_startPoint, _middlePoint, _time);
@@ -43,7 +45,7 @@ public class SimpleParabolaMovement : MonoBehaviour
 
         if (_point1 == _middlePoint && _point2 == _targetPoint)
         {
-            reachedTarget = true;
+            _reachedTarget = true;
         }
             
     }
