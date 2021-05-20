@@ -1,4 +1,4 @@
 # UnityParabolaJump
 Simple quadratic Bézier curve for Unity
 
-//use cinemachine track
+//use cinemachine track instead
